@@ -1,0 +1,69 @@
+@import url("https://fonts.googleapis.com/css2?family=Sofia+Sans&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+}
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  font-family: "Sofia Sans", sans-serif;
+}
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+#root,
+#__next {
+  isolation: isolate;
+}
+
+.footer-links-wrapper a,
+.footer-links-wrapper img {
+  @apply py-2;
+}
+
+.intro {
+  background-image: url("./presentation-video.jpg");
+  background-repeat: no-repeat;
+}
+
+.footer-links-wrapper {
+  @apply bg-[#E1E1E1] lg:px-[200px] px-6 pt-6;
+}
+
+.partners-wrapper,
+.confinanciamento-wrapper {
+  @apply bg-[#E1E1E1] lg:px-[200px] px-6 pb-3 pt-1;
+}
+
+.partners-wrapper {
+  @apply border-white border-solid border-b-2 border-t-2;
+}
