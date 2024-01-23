@@ -3,9 +3,9 @@ import React from "react";
 const Contact = () => {
   return (
     <div className="text-center mx-6">
-      <h3 className="text-[34px] leading-[40.8px] font-bold	mb-4">
+      <p className="text-[34px] leading-[40.8px] font-bold	mb-4">
         Lorem ipsumLorem ipsum
-      </h3>
+      </p>
       <p className="font-normal text-base leading-[19.2px]">Lorem ipsum</p>
       <p className="font-normal text-[29px] leading-[34.8px] mt-8">
         Lorem ipsum

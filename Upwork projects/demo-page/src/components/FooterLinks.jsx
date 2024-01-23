@@ -4,7 +4,7 @@ const FooterLinks = () => {
   return (
     <div className="footer-links-wrapper  flex flex-wrap lg:justify-between md:flex-nowrap gap-5">
       <div>
-        <img src="logo.svg" alt="logo" />
+        <img src="/logo.svg" alt="website logo" height={28} width={120} />
         <p className="text-[10px] leading-3 text-[#5E5E5E] w-[155px]">
           Copyright © 2024 EndlessDS. All Rights Reserved
         </p>
