@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { useState } from "react";
 
 const Navbar = () => {
@@ -11,9 +12,9 @@ const Navbar = () => {
     <nav className="bg-purple-700 p-4">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center">
-          <a href="#" className="text-white text-lg font-bold">
+          <Link href="/" className="text-white text-lg font-bold">
             CodeRockers
-          </a>
+          </Link>
         </div>
 
         {/* Responsive Menu Button */}
