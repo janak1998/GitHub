@@ -62,7 +62,7 @@ export default function ImageSlider({ url, limit = 5, page = 1 }) {
                 src={imageItem.download_url}
                 className={
                   currentSlide === index
-                    ? "current-image"
+                    ? "current-image  object-cover"
                     : "current-image hide-current-image"
                 }
               />
