@@ -13,10 +13,10 @@ export const LoadMoreData = () => {
   //async await for fetching date with fetch api
   async function fetchProducts() {
     try {
-      //initially loading state is true 
+      //initially loading state is true
       setLoading(true);
 
-      //response variable has data from fetch call 
+      //response variable has data from fetch call
       const response = await fetch(
         `https://dummyjson.com/products?limit=20&skip=${
           count === 0 ? 0 : count * 20
@@ -26,9 +26,9 @@ export const LoadMoreData = () => {
       const result = await response.json();
       console.log("result", result);
 
-      //condition to check result, products and product lenth -> if all checks then add data in products, added prevData to handle existing data 
+      //condition to check result, products and product lenth -> if all checks then add data in products, added prevData to handle existing data
       if (result && result.products && result.products.length) {
-        //combine previous data n new data 
+        //combine previous data n new data
         setProducts((prevData) => [...prevData, ...result.products]);
         setLoading(false);
       }
@@ -38,12 +38,10 @@ export const LoadMoreData = () => {
     }
   }
 
-
-//useEffect for conditional rendering dependent on count(clicked) state
+  //useEffect for conditional rendering dependent on count(clicked) state
   useEffect(() => {
     fetchProducts();
   }, [count]);
-
 
   //conditionally set btn disable dependednt on products
   useEffect(() => {
