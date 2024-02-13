@@ -12,7 +12,6 @@ const MenuItem = ({ item }) => {
     });
   }
 
-  console.log(displayCurrentChildren);
 
   return (
     <li>
