@@ -9,21 +9,18 @@ function Accordian() {
 
   function handleSingleSelection(getCurrentId) {
     setSelected(getCurrentId === selected ? null : getCurrentId);
-    console.log("getCurrentId", getCurrentId);
   }
  
   function handleMultipleSelection(getCurrentId) {
     let cpyMultiple = [...multiple];
 
     const findIndexOfCurrentId = cpyMultiple.indexOf(getCurrentId);
-    console.log("findIndexOfCurrentId", findIndexOfCurrentId);
 
     if (findIndexOfCurrentId === -1) cpyMultiple.push(getCurrentId);
     else cpyMultiple.splice(findIndexOfCurrentId, 1);
 
     setMultiple(cpyMultiple);
   }
-  console.log("selected-" + selected, "multiple-" + multiple);
 
   return (
     <div className="acc-wrapper">

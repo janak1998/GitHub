@@ -24,7 +24,6 @@ export const LoadMoreData = () => {
       );
       // result has json converted data from response
       const result = await response.json();
-      console.log("result", result);
 
       //condition to check result, products and product lenth -> if all checks then add data in products, added prevData to handle existing data
       if (result && result.products && result.products.length) {
@@ -33,7 +32,6 @@ export const LoadMoreData = () => {
         setLoading(false);
       }
     } catch (e) {
-      console.log(e);
       setLoading(false);
     }
   }
