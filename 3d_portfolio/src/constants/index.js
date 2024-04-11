@@ -23,6 +23,7 @@ import {
   jobit,
   tripguide,
   threejs,
+  mnetlogo,
 } from "../assets";
 
 export const navLinks = [
@@ -42,19 +43,16 @@ export const navLinks = [
 
 const services = [
   {
-    title: "Web Developer",
+    title: "Frontend Developer",
     icon: web,
   },
   {
-    title: "React Native Developer",
+    title: "Wordpress Developer",
     icon: mobile,
   },
+
   {
-    title: "Backend Developer",
-    icon: backend,
-  },
-  {
-    title: "Content Creator",
+    title: "Web 3 Enthusiast",
     icon: creator,
   },
 ];
@@ -81,10 +79,6 @@ const technologies = [
     icon: reactjs,
   },
   {
-    name: "Redux Toolkit",
-    icon: redux,
-  },
-  {
     name: "Tailwind CSS",
     icon: tailwind,
   },
@@ -92,14 +86,7 @@ const technologies = [
     name: "Node JS",
     icon: nodejs,
   },
-  {
-    name: "MongoDB",
-    icon: mongodb,
-  },
-  {
-    name: "Three JS",
-    icon: threejs,
-  },
+
   {
     name: "git",
     icon: git,
@@ -116,57 +103,62 @@ const technologies = [
 
 const experiences = [
   {
-    title: "React.js Developer",
-    company_name: "Starbucks",
-    icon: starbucks,
+    title: "UI Developer L1",
+    company_name: "Media.net",
+    icon: mnetlogo,
     iconBg: "#383E56",
-    date: "March 2020 - April 2021",
+    date: "January 2023 - November 2023",
     points: [
-      "Developing and maintaining web applications using React.js and other related technologies.",
-      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-      "Implementing responsive design and ensuring cross-browser compatibility.",
-      "Participating in code reviews and providing constructive feedback to other developers.",
+      "Collaborated with clients to define website requirements, boosting project alignment by 15% and revenue by 10%.",
+      "Engineered website architecture, achieving a 20% performance increase and a subsequent 12% rise in user engagement.",
+      "Organized information and designed the website for a 25% boost in engagement, translating to a 15% increase in overall revenue.",
+      "Modified website code, contributing to a 25% improvement in functionality and user experience",
+      "Conducted tests, reducing post-launch issues by 15% and improving customer satisfaction, resulting in a 10% increase in revenue.",
+      "Contributed to the Front End Search Engine Optimization(SEO)",
     ],
   },
   {
-    title: "React Native Developer",
-    company_name: "Tesla",
-    icon: tesla,
+    title: "Associate UI Developer",
+    company_name: "Media.net(Forbes)",
+    icon: mnetlogo,
     iconBg: "#E6DEDD",
     date: "Jan 2021 - Feb 2022",
     points: [
-      "Developing and maintaining web applications using React.js and other related technologies.",
-      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-      "Implementing responsive design and ensuring cross-browser compatibility.",
-      "Participating in code reviews and providing constructive feedback to other developers.",
+      "Worked on various applications under FORBES, primarily on Advisor multiple web applications. ",
+      "Collaborated with back-end developers and web designers to improve web page usability.",
+      "Enhanced web app performance by 25% through speed optimization and mobile responsiveness, leading to improved visibility and user experience.",
+      "Tested, debugged and shipped 10s of 100s of lines of code to production.",
+      "Applied Agile planning principles to deliver tailored solutions meeting customer requirements",
+      "Utilized HTML, CSS and Javascript to create 50+ responsive landing pages for both company and client.",
+      "Worked in an agile environment with daily stand-ups, weekly deployment, kept track of user stories/bugs in GitLab projects and contributed to sprint planning and sprint retrospectives per week",
     ],
   },
-  {
-    title: "Web Developer",
-    company_name: "Shopify",
-    icon: shopify,
-    iconBg: "#383E56",
-    date: "Jan 2022 - Jan 2023",
-    points: [
-      "Developing and maintaining web applications using React.js and other related technologies.",
-      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-      "Implementing responsive design and ensuring cross-browser compatibility.",
-      "Participating in code reviews and providing constructive feedback to other developers.",
-    ],
-  },
-  {
-    title: "Full stack Developer",
-    company_name: "Meta",
-    icon: meta,
-    iconBg: "#E6DEDD",
-    date: "Jan 2023 - Present",
-    points: [
-      "Developing and maintaining web applications using React.js and other related technologies.",
-      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-      "Implementing responsive design and ensuring cross-browser compatibility.",
-      "Participating in code reviews and providing constructive feedback to other developers.",
-    ],
-  },
+  // {
+  //   title: "Web Developer",
+  //   company_name: "Shopify",
+  //   icon: shopify,
+  //   iconBg: "#383E56",
+  //   date: "Jan 2022 - Jan 2023",
+  //   points: [
+  //     "Developing and maintaining web applications using React.js and other related technologies.",
+  //     "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
+  //     "Implementing responsive design and ensuring cross-browser compatibility.",
+  //     "Participating in code reviews and providing constructive feedback to other developers.",
+  //   ],
+  // },
+  // {
+  //   title: "Full stack Developer",
+  //   company_name: "Meta",
+  //   icon: meta,
+  //   iconBg: "#E6DEDD",
+  //   date: "Jan 2023 - Present",
+  //   points: [
+  //     "Developing and maintaining web applications using React.js and other related technologies.",
+  //     "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
+  //     "Implementing responsive design and ensuring cross-browser compatibility.",
+  //     "Participating in code reviews and providing constructive feedback to other developers.",
+  //   ],
+  // },
 ];
 
 const testimonials = [
@@ -198,17 +190,13 @@ const testimonials = [
 
 const projects = [
   {
-    name: "Car Rent",
+    name: "Responsive Dashboard",
     description:
-      "Web-based platform that allows users to search, book, and manage car rentals from various providers, providing a convenient and efficient solution for transportation needs.",
+      "A responsive dashboard using React and Tailwind, meticulously following the design specifications provided by the client in Figma. A mobile first approach was used for better user experience ",
     tags: [
       {
         name: "react",
         color: "blue-text-gradient",
-      },
-      {
-        name: "mongodb",
-        color: "green-text-gradient",
       },
       {
         name: "tailwind",
@@ -216,49 +204,52 @@ const projects = [
       },
     ],
     image: carrent,
-    source_code_link: "https://github.com/",
+    source_code_link:
+      "https://github.com/janak1998/GitHub/tree/master/Upwork%20projects/demo-page",
   },
   {
-    name: "Job IT",
+    name: "Social Media",
     description:
-      "Web application that enables users to search for job openings, view estimated salary ranges for positions, and locate available jobs based on their current location.",
+      "Web application facilitates users to view existing posts and add new ones. The primary focus of this project was to implement CRUD operations in React, utilizing an API for data management.",
     tags: [
       {
         name: "react",
         color: "blue-text-gradient",
       },
       {
-        name: "restapi",
+        name: "fetchapi",
         color: "green-text-gradient",
       },
       {
-        name: "scss",
+        name: "bootstrap",
         color: "pink-text-gradient",
       },
     ],
     image: jobit,
-    source_code_link: "https://github.com/",
+    source_code_link:
+      "https://github.com/janak1998/React-Projects/tree/main/social-media",
   },
   {
-    name: "Trip Guide",
+    name: "Portfolio",
     description:
-      "A comprehensive travel booking platform that allows users to book flights, hotels, and rental cars, and offers curated recommendations for popular destinations.",
+      "Web application features a portfolio displaying stunning 3D animations. Leveraging Swiper, it incorporates touch animations with hardware-accelerated transitions for a seamless user experience.",
     tags: [
       {
         name: "nextjs",
         color: "blue-text-gradient",
       },
       {
-        name: "supabase",
+        name: "framer-motion",
         color: "green-text-gradient",
       },
       {
-        name: "css",
+        name: "tailwind",
         color: "pink-text-gradient",
       },
     ],
     image: tripguide,
-    source_code_link: "https://github.com/",
+    source_code_link:
+      "https://github.com/janak1998/Portfolia-2024/tree/main/portfolio-2024",
   },
 ];
 
