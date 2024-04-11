@@ -1,6 +1,6 @@
 # Responsive Dashboard
 
-Link - [http://localhost:5174/](https://singular-elf-87fbbd.netlify.app/)
+Link - (https://singular-elf-87fbbd.netlify.app/)
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
