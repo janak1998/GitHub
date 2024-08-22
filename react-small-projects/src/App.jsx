@@ -10,8 +10,8 @@ import menus from "./components/tree-view/data";
 
 function App() {
   return (
-    <>
-      {/* <Accordian /> */}
+    <div>
+      <Accordian />
 
       {/* <RandomColor /> */}
 
@@ -29,8 +29,8 @@ function App() {
 
       {/* <QRCodeGenerator /> */}
 
-      <LightDarkMode />
-    </>
+      {/* <LightDarkMode /> */}
+    </div>
   );
 }
 
