@@ -58,7 +58,7 @@ export default function TelegramAuth() {
         </>
       )
         : (
-          <div>
+          <div className="flex flex-col items-center justify-center gap-5">
             <p>You need to be an owner of this account</p>
             <button onClick={
               authenticateUser
