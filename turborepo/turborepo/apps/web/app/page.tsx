@@ -1,6 +1,9 @@
+'use client';
+
 import Image from "next/image";
 import { Button } from "@repo/ui/button";
 import styles from "./page.module.css";
+import { add } from "shared-utils";
 
 export default function Home() {
   return (
@@ -49,6 +52,8 @@ export default function Home() {
         <Button appName="web" className={styles.secondary}>
           Open alert
         </Button>
+
+        <button onClick={() => alert(add(1, 2))}>Add</button>
       </main>
       <footer className={styles.footer}>
         <a
