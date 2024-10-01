@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import steps_img from "../app/assets/steps_illustration.svg";
+import { Button } from "./ui/button";
 const Guide = () => {
   return (
     <section className="container px-4 py-10 mx-auto bg-gray-900 text-white">
@@ -51,14 +52,12 @@ const Guide = () => {
             alt="A beautiful landscape"
             width={800}
             height={500}
-            layout="responsive"
+            style="responsive"
           />
         </div>
       </div>
       <div className="mt-8 text-center">
-        <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-          Start Now
-        </button>
+        <Button variant="lg">Start Now</Button>
       </div>
     </section>
   );

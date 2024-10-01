@@ -37,20 +37,22 @@ const FAQs = () => {
   ];
 
   return (
-    <div className="max-w-2xl mx-auto p-4 mt-5">
+    <div className="container px-4 py-10 mx-auto lg:w-[1200px]">
       <h2 className="text-3xl font-bold mb-6 text-center">Got Questions?</h2>
       <div className="space-y-4">
         {faqs.map((faq, index) => (
           <div key={index} className="border-b border-gray-200 pb-4">
             <button
-              className="w-full text-left flex justify-between items-center py-2 text-lg font-medium dark:text-white"
+              className="w-full text-left flex items-center  py-2 text-lg font-medium dark:text-white"
               onClick={() => toggleAccordion(index)}
             >
+              <span className="ml-2 mr-5">
+                {openIndex === index ? "-" : "+"}
+              </span>
               {faq.question}
-              <span className="ml-2">{openIndex === index ? "-" : "+"}</span>
             </button>
             <div
-              className={`mt-2 dark:text-white transition-all duration-300 ease-in-out ${
+              className={`mt-2 dark:text-white transition-all duration-300 ease-in-out px-[38px] py-0 ${
                 openIndex === index
                   ? "max-h-screen opacity-100"
                   : "max-h-0 opacity-0 overflow-hidden"

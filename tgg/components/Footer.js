@@ -7,7 +7,6 @@ const Footer = () => {
         <nav className="cursor-pointer flex justify-center items-center gap-4">
           <a className="link link-hover hover:text-blue-500">Services</a>
           <a className="link link-hover hover:text-blue-500">Pricing</a>
-          <a className="link link-hover hover:text-blue-500">Visa Types</a>
           <a className="link link-hover hover:text-blue-500">About</a>
         </nav>
         <nav>

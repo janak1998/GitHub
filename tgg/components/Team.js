@@ -13,10 +13,10 @@ const Team = () => {
               alt="The German Guy Team"
               width={800}
               height={500}
-              layout="responsive"
+              style="responsive"
             />
           </div>
-          <div>
+          <div className="text-center lg:text-left">
             <h2 className="text-4xl font-bold mb-6 text-gray-900 dark:text-white">
               Who We Are
             </h2>

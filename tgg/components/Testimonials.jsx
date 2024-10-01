@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import React, { useState } from "react";
 
 const testimonials = [
@@ -66,7 +67,7 @@ const Testimonials = () => {
               }}
             >
               <div className="flex flex-col items-center p-6 bg-white border rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
-                <img
+                <Image
                   src={testimonial.image}
                   alt={testimonial.name}
                   className="w-24 h-24 mb-4 rounded-full"

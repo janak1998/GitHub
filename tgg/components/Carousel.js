@@ -8,64 +8,65 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import React from "react";
+import Image from "next/image";
 
 const studentTestimonials = [
   {
-    image: "https://via.placeholder.com/150?text=Sarah+J.",
+    image: "https://via.placeholder.com/150?text=Sarah+J",
     name: "Sarah Johnson",
     description:
       "Thanks to The German Guy, my university application process was seamless! Their step-by-step guidance made everything so easy.",
   },
   {
-    image: "https://via.placeholder.com/150?text=Michael+S.",
+    image: "https://via.placeholder.com/150?text=Michael+S",
     name: "Michael Smith",
     description:
       "The support I received for both job applications and visa processing was amazing. I couldn't have done it without them!",
   },
   {
-    image: "https://via.placeholder.com/150?text=Anna+K.",
+    image: "https://via.placeholder.com/150?text=Anna+K",
     name: "Anna Kim",
     description:
       "From crafting my resume to university selection, The German Guy helped me every step of the way. Highly recommend!",
   },
   {
-    image: "https://via.placeholder.com/150?text=David+R.",
+    image: "https://via.placeholder.com/150?text=David+R",
     name: "David Rodriguez",
     description:
       "I was nervous about moving to Germany, but The German Guy made the transition smoother than I expected.",
   },
   {
-    image: "https://via.placeholder.com/150?text=Emily+T.",
+    image: "https://via.placeholder.com/150?text=Emily+T",
     name: "Emily Taylor",
     description:
       "Their team helped me find the best university and supported me through the entire process. Truly a life-changing experience!",
   },
   {
-    image: "https://via.placeholder.com/150?text=John+P.",
+    image: "https://via.placeholder.com/150?text=John+P",
     name: "John Patel",
     description:
       "The German Guy not only helped with my application but also provided valuable tips for settling into life in Germany.",
   },
   {
-    image: "https://via.placeholder.com/150?text=Olivia+M.",
+    image: "https://via.placeholder.com/150?text=Olivia+M",
     name: "Olivia Martinez",
     description:
       "I can't thank them enough for helping me secure my dream job in Germany. The application process was so easy with their help!",
   },
   {
-    image: "https://via.placeholder.com/150?text=Ethan+L.",
+    image: "https://via.placeholder.com/150?text=Ethan+L",
     name: "Ethan Lee",
     description:
       "Their personalized advice and constant support made all the difference during my move to Germany. Highly professional team!",
   },
   {
-    image: "https://via.placeholder.com/150?text=Sophia+W.",
+    image: "https://via.placeholder.com/150?text=Sophia+W",
     name: "Sophia Williams",
     description:
       "The German Guy took care of everything—from my resume to my job application. I couldn’t be happier with their service!",
   },
   {
-    image: "https://via.placeholder.com/150?text=James+B.",
+    image: "https://via.placeholder.com/150?text=James+B",
     name: "James Brown",
     description:
       "I was lost when it came to applying to German universities, but The German Guy walked me through every single detail. Incredible service!",
@@ -93,7 +94,7 @@ const CarouselSection = () => {
               <div className="p-1">
                 <Card>
                   <CardHeader className="">
-                    <img
+                    <Image
                       src={person.image}
                       alt={person.name}
                       className="rounded-full mx-auto"
