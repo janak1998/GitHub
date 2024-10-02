@@ -33,7 +33,7 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  href="/about"
+                  href="/pricing"
                   className="block py-2 md:py-0 hover:text-blue-500"
                 >
                   Pricing
@@ -41,7 +41,7 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  href="/contact"
+                  href="/visa-types"
                   className="block py-2 md:py-0 hover:text-blue-500"
                 >
                   Visa Types
@@ -49,7 +49,7 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  href="/contact"
+                  href="/about"
                   className="block py-2 md:py-0 hover:text-blue-500"
                 >
                   About
