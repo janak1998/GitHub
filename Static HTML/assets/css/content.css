@@ -96,3 +96,38 @@
   color: #2aac08; /* Highlight color */
   font-weight: 600; /* Bold text */
 }
+
+/* General table styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Make the table scrollable for iPad and smaller screens */
+@media screen and (max-width: 1024px) {
+  table {
+    display: block; /* Enable block layout */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevent text wrapping */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling for touch devices */
+  }
+
+  table th,
+  table td {
+    white-space: nowrap; /* Prevent wrapping in cells */
+  }
+}
+
+/* Optional: Style for scrollbars */
+table::-webkit-scrollbar {
+  height: 6px;
+}
+
+table::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+table::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
