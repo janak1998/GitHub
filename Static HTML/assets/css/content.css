@@ -1,0 +1,98 @@
+.detail-mid ol li,
+.detail-mid ul li,
+.detail-mid table tbody td ul,
+.detail-mid table tbody td ol {
+  color: #415565;
+  list-style: inherit;
+  text-align: left;
+}
+
+.detail-mid ol,
+.detail-mid ul {
+  list-style: inherit;
+  padding-left: 20px;
+}
+
+.detail-mid table tbody td {
+  padding: 10px 15px;
+}
+
+.detail-mid > img {
+  width: 75%;
+  min-width: 270px;
+}
+
+.detail-mid table td {
+  text-align: center;
+}
+
+.detail-mid table td ul {
+  text-align: center;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.detail-mid table th {
+  background-color: #cfe2f3;
+}
+
+.detail-mid table:not(:has(thead)) tbody tr:first-child,
+.detail-mid table:not(:has(th)) tbody tr:first-child {
+  background-color: #cfe2f3;
+}
+
+.detail-mid table:not(:has(thead)) tbody tr:first-child p,
+.detail-mid table:not(:has(th)) tbody tr:first-child p {
+  font-weight: bold;
+}
+
+.detail-mid ol li {
+  list-style-type: decimal;
+}
+
+.detail-mid {
+  gap: 10px;
+}
+
+.detail-mid h2,
+.detail-mid h3,
+.detail-mid h4,
+.detail-mid h5,
+.detail-mid h6,
+.detail-mid img {
+  padding-top: 20px;
+  font-family: "Figtree";
+  font-weight: bold;
+}
+
+.detail-mid li strong,
+.detail-mid p strong,
+.detail-mid h2 strong,
+.detail-mid h2 strong,
+.detail-mid h3 strong,
+.detail-mid h4 strong,
+.detail-mid h5,
+.detail-mid h6 {
+  font-family: "Figtree";
+}
+
+.detail-mid a {
+  display: block;
+  width: fit-content;
+  @apply border-themeBlue border-2 max-w-[242px] font-semibold text-themeBlue no-underline hover:text-white hover:bg-themeBlue text-lg py-[10px] px-6 rounded;
+  border: 2px solid #1d3054;
+  border-radius: 4px;
+  color: #1d3054;
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 600;
+  padding: 10px 26px;
+}
+
+.detail-mid a:hover {
+  background-color: #1d3054;
+  color: white;
+}
+.detail-left-inner > a.active-hash-link {
+  color: #2aac08; /* Highlight color */
+  font-weight: 600; /* Bold text */
+}
