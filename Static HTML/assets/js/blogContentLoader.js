@@ -32,6 +32,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Function to render blog content in .detail-mid
 function renderBlogContent(content, container) {
+  let currentOrderCount = 1; // Initialize the counter for ordered lists
+
   content.forEach((item) => {
     let element;
 
@@ -54,12 +56,19 @@ function renderBlogContent(content, container) {
         });
       }
     } else if (item.type.startsWith("h")) {
+      currentOrderCount = 1; // Reset counter when a heading is encountered
       element = document.createElement(item.type);
       element.innerHTML = item.text; // Render headings with <strong> tags
     } else if (item.type === "list") {
       element = document.createElement(
         item.listType === "unordered" ? "ul" : "ol"
       );
+
+      if (item.listType === "ordered") {
+        element.setAttribute("start", currentOrderCount); // Set the starting number for ordered lists
+        currentOrderCount += item.items.length; // Update the counter
+      }
+
       item.items.forEach((listItem) => {
         const li = document.createElement("li");
         li.innerHTML = listItem.text; // Render list items with <strong> tags
@@ -103,6 +112,11 @@ function renderBlogContent(content, container) {
                   nestedItem.listType === "unordered" ? "ul" : "ol";
                 const nestedList = document.createElement(NestedListTag);
 
+                if (nestedItem.listType === "ordered") {
+                  nestedList.setAttribute("start", currentOrderCount); // Set the starting number
+                  currentOrderCount += nestedItem.items.length; // Update counter
+                }
+
                 nestedItem.items.forEach((nestedListItem) => {
                   const li = document.createElement("li");
                   li.innerHTML = nestedListItem.text; // Render nested list items
@@ -128,24 +142,19 @@ function renderBlogContent(content, container) {
       element.className = "my-4";
     }
 
-    // Select all <h2> elements within the container
-    const h2Elements = container.querySelectorAll("h2");
-
-    h2Elements.forEach((h2) => {
-      // Sanitize text content to generate a valid ID
-      let sanitizedId = h2.textContent
+    // Assign IDs to <h2> elements for jump links
+    if (element && item.type.startsWith("h")) {
+      let sanitizedId = element.textContent
         .replace(/<\/?strong>/g, "") // Remove <strong> tags
         .replace(/[0-9]/g, "") // Remove numbers
         .replace(/\s+/g, "-") // Replace spaces with hyphens
         .replace(/-+/g, "-") // Remove consecutive hyphens
         .toLowerCase(); // Convert to lowercase
 
-      // Remove leading non-alphabetic characters
-      sanitizedId = sanitizedId.replace(/^[^a-z]+/, "");
+      sanitizedId = sanitizedId.replace(/^[^a-z]+/, ""); // Remove leading non-alphabetic characters
+      element.id = `${sanitizedId}`;
+    }
 
-      // Assign the sanitized ID to the <h2>
-      h2.id = `${sanitizedId}`;
-    });
     if (element) {
       container.appendChild(element);
     }
