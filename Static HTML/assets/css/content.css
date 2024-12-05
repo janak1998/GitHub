@@ -207,6 +207,10 @@ li:has(strong)::marker {
   padding-bottom: 10px;
 }
 
+.related-blogs-inner a span img {
+  border-radius: 8px;
+}
+
 /* Optional: Style for scrollbars */
 .related-blogs-inner::-webkit-scrollbar {
   height: 6px;
