@@ -198,6 +198,29 @@ li:has(strong)::marker {
   font-weight: 600; /* Bold text */
 }
 
+.detail-main-container {
+  padding-bottom: 20px;
+}
+
+.related-blogs-inner {
+  overflow-x: scroll;
+  padding-bottom: 10px;
+}
+
+/* Optional: Style for scrollbars */
+.related-blogs-inner::-webkit-scrollbar {
+  height: 6px;
+}
+
+.related-blogs-inner::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.related-blogs-inner::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 /* General table styles */
 table {
   width: 100%;
