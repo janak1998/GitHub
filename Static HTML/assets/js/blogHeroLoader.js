@@ -1,43 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Display the loader
-  const preloader = document.getElementById("preloader");
-  const sectionsToHide = [
-    document.getElementById("detail-top"),
-    document.getElementById("detail-main"),
-    document.getElementById("related-blogs"),
-  ];
-
-  // Hide sections initially
-  sectionsToHide.forEach((section) => {
-    if (section) {
-      section.style.visibility = "hidden";
-      section.style.opacity = "0";
-    }
-  });
-
-  // Show loader and hide sections
-  preloader.style.display = "flex";
-
-  // Hide loader and show sections after 2-3 seconds
-  setTimeout(() => {
-    preloader.style.display = "none";
-
-    // Show the hidden sections
-    sectionsToHide.forEach((section) => {
-      if (section) {
-        section.style.visibility = "visible";
-        section.style.opacity = "1";
-        section.style.transition = "opacity 0.5s ease-in-out"; // Smooth fade-in effect
-      }
-    });
-
-    document.body.style.visibility = "visible";
-    document.body.style.opacity = "1"; // Ensure the body content is visible
-  }, 2000); // Adjust the delay as needed (e.g., 2000ms = 2 seconds)
-});
-
-// Fetch and render the hero section of the blog
-document.addEventListener("DOMContentLoaded", () => {
   // Get the blog ID from the <body> element
   const blogId = document.body.getAttribute("data-blog-id");
 
@@ -70,6 +31,20 @@ function renderHeroSection(metadata) {
   if (!detailTop) {
     console.error("Element #detail-top not found.");
     return;
+  }
+
+  // Handle image visibility
+  const detailTopContainer = document.querySelector(
+    ".blog-detail-top-container"
+  );
+  if (metadata.heroImage) {
+    if (detailTopContainer) {
+      detailTopContainer.style.backgroundImage = `url(${metadata.heroImage})`;
+    }
+  } else {
+    if (detailTopContainer) {
+      detailTopContainer.removeAttribute("style");
+    }
   }
 
   // Populate categories
