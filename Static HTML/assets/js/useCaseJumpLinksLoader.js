@@ -21,7 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const blog = blogs.find((b) => b.id === blogId);
 
       if (blog && Array.isArray(blog.content)) {
-        renderJumpLinks(blog.content);
+        const structuredContent = buildStructure(blog.content);
+        renderJumpLinks(structuredContent);
       } else {
         console.error(
           `Blog with ID ${blogId} not found or invalid content in blogs.json.`
@@ -52,7 +53,23 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-function renderJumpLinks(content) {
+function buildStructure(content) {
+  const structure = [];
+  let currentH3 = null;
+
+  content.forEach((item) => {
+    if (item.type === "h3") {
+      currentH3 = { title: item.text, children: [] };
+      structure.push(currentH3);
+    } else if (item.type === "h4" && currentH3) {
+      currentH3.children.push({ title: item.text });
+    }
+  });
+
+  return structure;
+}
+
+function renderJumpLinks(structure) {
   const detailLeftInner = document.querySelector(".detail-left-inner");
   if (!detailLeftInner) {
     console.error(".detail-left-inner not found.");
@@ -61,91 +78,96 @@ function renderJumpLinks(content) {
 
   detailLeftInner.innerHTML = "";
 
-  const sectionHeader = document.createElement("div");
-  detailLeftInner.appendChild(sectionHeader);
+  structure.forEach((h3, index) => {
+    const currentH3 = document.createElement("div");
+    currentH3.className = `jump-link-h3 h3-${index + 1}`;
 
-  const headings = content.filter((item) => /^(h3|h4)$/.test(item.type));
-
-  let h3Count = 0; // Counter for unique identification of h3 elements
-
-  headings.forEach((heading) => {
     const link = document.createElement("a");
-
-    let sanitizedHref = heading.text
-      .replace(/<\/?strong>/g, "")
-      .replace(/[0-9]/g, "")
-      .replace(/\s+/g, "-")
-      .replace(/-+/g, "-")
-      .toLowerCase();
-
-    sanitizedHref = sanitizedHref.replace(/^[^a-z]+/, "");
-
-    link.href = `#${sanitizedHref}`;
-    link.textContent = heading.text.replace(/<\/?strong>/g, "");
+    link.textContent = h3.title;
     link.className = "jump-link";
+    link.href = `#${generateSanitizedHref(h3.title)}`; // Generate href for h3
+    currentH3.appendChild(link);
 
-    if (heading.type === "h3") {
-      h3Count += 1;
+    const sublist = document.createElement("div");
+    sublist.className = `jump-link-sublist sublist-${index + 1}`;
+    sublist.style.display = "none";
 
-      const currentH3 = document.createElement("div");
-      currentH3.className = `jump-link-h3 h3-${h3Count}`;
-
-      const sublist = document.createElement("div");
-      sublist.className = `jump-link-sublist sublist-${h3Count}`;
-      sublist.style.display = "none";
-
-      currentH3.appendChild(link);
-      currentH3.appendChild(sublist);
-      detailLeftInner.appendChild(currentH3);
-
-      addAccordionLogic(currentH3, sublist);
-
-      link.removeAttribute("href");
-    } else if (heading.type === "h4") {
+    h3.children.forEach((h4) => {
       const sublink = document.createElement("a");
-      sublink.href = link.href;
-      sublink.textContent = link.textContent;
+      sublink.textContent = h4.title;
       sublink.className = "jump-link-h4";
+      sublink.href = `#${generateSanitizedHref(h4.title)}`; // Generate href for h4
+      sublist.appendChild(sublink);
+    });
 
-      // Append to the last created sublist
-      const lastSublist = detailLeftInner.querySelector(`.sublist-${h3Count}`);
-      if (lastSublist) {
-        lastSublist.appendChild(sublink);
-      }
+    if (h3.children.length > 0) {
+      currentH3.appendChild(sublist);
+      addAccordionLogic(currentH3, sublist);
+      currentH3.classList.add("accordion");
     }
+
+    detailLeftInner.appendChild(currentH3);
   });
 }
+
+function generateSanitizedHref(text) {
+  return text
+    .replace(/<\/?strong>/g, "") // Remove <strong> tags
+    .replace(/[0-9]/g, "") // Remove numbers
+    .replace(/\s+/g, "-") // Replace spaces with hyphens
+    .replace(/-+/g, "-") // Remove consecutive hyphens
+    .toLowerCase() // Convert to lowercase
+    .replace(/^[^a-z]+/, ""); // Remove leading non-alphabetic characters
+}
+
 function addAccordionLogic(currentH3, sublist) {
-  // Add accordion class to parent if sublist is not empty
-
   currentH3.addEventListener("click", (event) => {
-    // Prevent event bubbling
-    event.stopPropagation();
-
-    // Close all other sublists
-    
-
-    // Toggle the current sublist
-    if (sublist.style.display === "block") {
-      sublist.style.display = "none"; // Hide this sublist if open
-      currentH3.classList.remove("accordion-open"); // Remove accordion class
-    } else {
-      sublist.style.display = "block"; // Show this sublist
-      currentH3.classList.add("accordion-open"); // Add accordion class
+    if (event.target.tagName.toLowerCase() === "a") {
+      return; // Allow default behavior for child links
     }
-  });
 
-  document.querySelectorAll(".jump-link-sublist").forEach((otherSublist) => {
-      if (otherSublist !== sublist) {
+    const isOpen = currentH3.classList.contains("accordion-open");
+
+    document.querySelectorAll(".jump-link-h3.accordion").forEach((otherH3) => {
+      const otherSublist = otherH3.querySelector(".jump-link-sublist");
+      otherH3.classList.remove("accordion-open");
+      if (otherSublist) {
         otherSublist.style.display = "none";
-        const otherParent = otherSublist.parentElement;
-        if (otherParent) {
-          otherParent.classList.remove("accordion-open"); // Remove accordion class for non-active sublists
-        }
       }
     });
 
-  if (sublist && sublist.hasChildNodes()) {
-    currentH3.classList.add("accordion");
-  }
+    if (!isOpen) {
+      currentH3.classList.add("accordion-open");
+      sublist.style.display = "block";
+    } else {
+      currentH3.classList.remove("accordion-open");
+      sublist.style.display = "none";
+    }
+  });
+}
+
+function addAccordionLogic(currentH3, sublist) {
+  currentH3.addEventListener("click", (event) => {
+    if (event.target.tagName.toLowerCase() === "a") {
+      return; // Allow default behavior for child links
+    }
+
+    const isOpen = currentH3.classList.contains("accordion-open");
+
+    document.querySelectorAll(".jump-link-h3.accordion").forEach((otherH3) => {
+      const otherSublist = otherH3.querySelector(".jump-link-sublist");
+      otherH3.classList.remove("accordion-open");
+      if (otherSublist) {
+        otherSublist.style.display = "none";
+      }
+    });
+
+    if (!isOpen) {
+      currentH3.classList.add("accordion-open");
+      sublist.style.display = "block";
+    } else {
+      currentH3.classList.remove("accordion-open");
+      sublist.style.display = "none";
+    }
+  });
 }
