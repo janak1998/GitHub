@@ -1,4 +1,30 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Preloader Logic
+  window.addEventListener("load", () => {
+    const preloader = document.getElementById("preloader");
+
+    const sectionsToHide = [
+      document.getElementById("detail-top"),
+      document.getElementById("detail-main"),
+      document.getElementById("related-blogs"),
+      ...document.getElementsByTagName("header"),
+    ];
+
+    setTimeout(() => {
+      preloader.style.display = "none";
+      document.body.style.visibility = "visible";
+      document.body.style.opacity = "1";
+
+      sectionsToHide.forEach((section) => {
+        if (section) {
+          section.style.visibility = "visible";
+          section.style.opacity = "1";
+        }
+      });
+    }, 500);
+  });
+
+  // Fetch and Update Meta Tags
   const blogId = document.body.getAttribute("data-blog-id");
 
   if (!blogId) {
@@ -6,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  fetch("/data/blogs.json")
+  fetch("https://s3-eu-west-1.amazonaws.com/dev.appdrag.com/html-migration-1d8225/data/blogs.json")
     .then((response) => {
       if (!response.ok) {
         throw new Error(`Failed to fetch blogs.json: ${response.status}`);
@@ -20,21 +46,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const blog = blogs.find((b) => b.id === blogId);
 
-      if (blog && Array.isArray(blog.content)) {
+      if (blog) {
+        updateMetaTags(blog.metadata);
         const structuredContent = buildStructure(blog.content);
         renderJumpLinks(structuredContent);
+
+        const container = document.querySelector(".detail-mid");
+        if (container) {
+          setTimeout(() => {
+            addIDsToHeadings(blog.content, container);
+          }, 3000);
+        } else {
+          console.error("Container .detail-mid not found.");
+        }
       } else {
-        console.error(
-          `Blog with ID ${blogId} not found or invalid content in blogs.json.`
-        );
+        console.error(`Blog with ID ${blogId} not found in blogs.json.`);
       }
     })
     .catch((error) => {
       console.error("Error loading blog content:", error);
     });
 
+  // Hash Change Listener for Active Links
   const currentHash = window.location.hash;
-
   const matchingLinks = document.querySelectorAll(`a[href="${currentHash}"]`);
 
   matchingLinks.forEach((link) => {
@@ -53,22 +87,65 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+const menuBtn = document.querySelector(".menu-btn");
+const closeBtn = document.querySelector(".close-menu");
+const nav = document.querySelector("nav");
+
+menuBtn.addEventListener("click", () => {
+    nav.style.height = `${nav.scrollHeight}px`;
+});
+closeBtn.addEventListener("click", () => {
+    nav.style.height = 0;
+});
+
+
+// Function to Update Meta Tags
+function updateMetaTags(metadata) {
+  document.title = metadata.title || "Untitled Blog";
+
+  let metaDescription = document.querySelector('meta[name="description"]');
+  if (!metaDescription) {
+    metaDescription = document.createElement("meta");
+    metaDescription.name = "description";
+    document.head.appendChild(metaDescription);
+  }
+  metaDescription.content =
+    metadata.metaDescription || "No description available.";
+
+  let metaKeywords = document.querySelector('meta[name="keywords"]');
+  if (!metaKeywords) {
+    metaKeywords = document.createElement("meta");
+    metaKeywords.name = "keywords";
+    document.head.appendChild(metaKeywords);
+  }
+  metaKeywords.content = metadata.keywords || "";
+}
+
+
+
+// Function to Build Structure for Jump Links
 function buildStructure(content) {
   const structure = [];
   let currentH3 = null;
 
   content.forEach((item) => {
     if (item.type === "h3") {
-      currentH3 = { title: item.text, children: [] };
+      currentH3 = {
+        title: item.text,
+        children: [],
+      };
       structure.push(currentH3);
     } else if (item.type === "h4" && currentH3) {
-      currentH3.children.push({ title: item.text });
+      currentH3.children.push({
+        title: item.text,
+      });
     }
   });
 
   return structure;
 }
 
+// Function to Render Jump Links
 function renderJumpLinks(structure) {
   const detailLeftInner = document.querySelector(".detail-left-inner");
   if (!detailLeftInner) {
@@ -85,7 +162,7 @@ function renderJumpLinks(structure) {
     const link = document.createElement("a");
     link.textContent = h3.title.replace(/<\/?strong>/g, "");
     link.className = "jump-link";
-    link.href = `#${generateSanitizedHref(h3.title)}`; // Generate href for h3
+    link.href = `#${generateSanitizedHref(h3.title)}`;
     currentH3.appendChild(link);
 
     const sublist = document.createElement("div");
@@ -110,20 +187,22 @@ function renderJumpLinks(structure) {
   });
 }
 
+// Generate Sanitized Href for Links
 function generateSanitizedHref(text) {
   return text
-    .replace(/<\/?strong>/g, "") // Remove <strong> tags
-    .replace(/^\d+/g, "") // Remove numbers only at the start
-    .replace(/\s+/g, "-") // Replace spaces with hyphens
-    .replace(/-+/g, "-") // Remove consecutive hyphens
-    .toLowerCase() // Convert to lowercase
-    .replace(/^[^a-z]+/, ""); // Remove leading non-alphabetic characters
+    .replace(/<\/?strong>/g, "")
+    .replace(/^\d+/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .toLowerCase()
+    .replace(/^[^a-z]+/, "");
 }
 
+// Add Accordion Logic to Jump Links
 function addAccordionLogic(currentH3, sublist) {
   currentH3.addEventListener("click", (event) => {
     if (event.target.tagName.toLowerCase() === "a") {
-      return; // Allow default behavior for child links
+      return;
     }
 
     const isOpen = currentH3.classList.contains("accordion-open");
@@ -142,6 +221,31 @@ function addAccordionLogic(currentH3, sublist) {
     } else {
       currentH3.classList.remove("accordion-open");
       sublist.style.display = "none";
+    }
+  });
+}
+
+// Add IDs to Headings
+function addIDsToHeadings(content, container) {
+  content.forEach((item) => {
+    if (item.type.startsWith("h")) {
+      const headings = Array.from(container.querySelectorAll(item.type));
+      const targetHeading = headings.find(
+        (h) => h.textContent.trim() === item.text.trim()
+      );
+      if (targetHeading) {
+        let sanitizedId = targetHeading.textContent
+          .replace(/<\/?strong>/g, "")
+          .replace(/^\d+/g, "")
+          .replace(/\s+/g, "-")
+          .replace(/-+/g, "-")
+          .toLowerCase()
+          .replace(/^[^a-z0-9]+/, "")
+          .replace(/[^a-z0-9]+$/g, "");
+        targetHeading.id = sanitizedId;
+      } else {
+        console.warn(`No ${item.type} found matching "${item.text}"`);
+      }
     }
   });
 }

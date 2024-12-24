@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (blog) {
         const container = document.querySelector(".detail-mid");
         if (container) {
-          renderBlogContent(blog.content, container);
+          addIDsToHeadings(blog.content, container);
         } else {
           console.error("Container .detail-mid not found.");
         }
@@ -31,132 +31,26 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Function to render blog content in .detail-mid
-function renderBlogContent(content, container) {
-  let currentOrderCount = 1; // Initialize the counter for ordered lists
-
+function addIDsToHeadings(content, container) {
   content.forEach((item) => {
-    let element;
-
-    if (item.type === "paragraph") {
-      element = document.createElement("p");
-      if (Array.isArray(item.content)) {
-        item.content.forEach((child) => {
-          if (child.type === "text") {
-            const span = document.createElement("span");
-            span.innerHTML = child.text; // Render text with <strong> tags
-            element.appendChild(span);
-          } else if (child.type === "customLink") {
-            const link = document.createElement("a");
-            link.href = child.href;
-            link.target = child.target || "_self";
-            link.rel = child.rel || "noopener";
-            link.textContent = child.text || "Link";
-            element.appendChild(link);
-          }
-        });
-      }
-    } else if (item.type.startsWith("h")) {
-      currentOrderCount = 1; // Reset counter when a heading is encountered
-      element = document.createElement(item.type);
-      element.innerHTML = item.text; // Render headings with <strong> tags
-    } else if (item.type === "list") {
-      element = document.createElement(
-        item.listType === "unordered" ? "ul" : "ol"
+    if (item.type.startsWith("h")) {
+      const headings = Array.from(container.querySelectorAll(item.type));
+      const targetHeading = headings.find(
+        (h) => h.textContent.trim() === item.text.trim()
       );
 
-      if (item.listType === "ordered") {
-        element.setAttribute("start", currentOrderCount); // Set the starting number for ordered lists
-        currentOrderCount += item.items.length; // Update the counter
+      if (targetHeading) {
+        let sanitizedId = targetHeading.textContent
+          .replace(/<\/?strong>/g, "")
+          .replace(/^\d+/g, "")
+          .replace(/\s+/g, "-")
+          .replace(/-+/g, "-")
+          .toLowerCase()
+          .replace(/^[^a-z]+/, "");
+        targetHeading.id = sanitizedId;
+      } else {
+        console.warn(`No ${item.type} found matching "${item.text}"`);
       }
-
-      item.items.forEach((listItem) => {
-        const li = document.createElement("li");
-        li.innerHTML = listItem.text; // Render list items with <strong> tags
-        element.appendChild(li);
-      });
-    } else if (item.type === "table") {
-      element = document.createElement("table");
-      element.className = "table-auto border-collapse w-full";
-      const tbody = document.createElement("tbody");
-
-      item.rows.forEach((row) => {
-        const tr = document.createElement("tr");
-        row.cells.forEach((cell) => {
-          const td = document.createElement("td");
-          td.colSpan = cell.colSpan || 1;
-          td.rowSpan = cell.rowSpan || 1;
-          td.className = "border px-4 py-2";
-
-          // Render main cell text
-          if (cell.text) {
-            const p = document.createElement("p");
-            p.innerHTML = cell.text; // Render cell text with <strong> tags
-            td.appendChild(p);
-          }
-
-          // Render nested content in cells
-          if (Array.isArray(cell.nested)) {
-            cell.nested.forEach((nestedItem) => {
-              if (nestedItem.type === "paragraph") {
-                const p = document.createElement("p");
-                nestedItem.content.forEach((nestedChild) => {
-                  if (nestedChild.type === "text") {
-                    const span = document.createElement("span");
-                    span.innerHTML = nestedChild.text;
-                    p.appendChild(span);
-                  }
-                });
-                td.appendChild(p);
-              } else if (nestedItem.type === "list") {
-                const NestedListTag =
-                  nestedItem.listType === "unordered" ? "ul" : "ol";
-                const nestedList = document.createElement(NestedListTag);
-
-                if (nestedItem.listType === "ordered") {
-                  nestedList.setAttribute("start", currentOrderCount); // Set the starting number
-                  currentOrderCount += nestedItem.items.length; // Update counter
-                }
-
-                nestedItem.items.forEach((nestedListItem) => {
-                  const li = document.createElement("li");
-                  li.innerHTML = nestedListItem.text; // Render nested list items
-                  nestedList.appendChild(li);
-                });
-
-                td.appendChild(nestedList);
-              }
-            });
-          }
-
-          tr.appendChild(td);
-        });
-        tbody.appendChild(tr);
-      });
-
-      element.appendChild(tbody);
-    } else if (item.type === "image") {
-      element = document.createElement("img");
-      element.src = item.url;
-      element.alt = item.alt || "";
-      element.title = item.title || "";
-      element.className = "my-4";
-    }
-
-    // Assign IDs to <h2> elements for jump links
-    if (element && item.type.startsWith("h")) {
-      let sanitizedId = element.textContent
-        .replace(/<\/?strong>/g, "") // Remove <strong> tags
-        .replace(/[0-9]/g, "") // Remove numbers
-        .replace(/\s+/g, "-") // Replace spaces with hyphens
-        .replace(/-+/g, "-") // Remove consecutive hyphens
-        .toLowerCase(); // Convert to lowercase
-
-      sanitizedId = sanitizedId.replace(/^[^a-z]+/, ""); // Remove leading non-alphabetic characters
-      element.id = `${sanitizedId}`;
-    }
-
-    if (element) {
-      container.appendChild(element);
     }
   });
 }

@@ -1512,14 +1512,13 @@ footer {
   min-width: 400px;
 }
 .detail-left-inner > div {
-  text-transform: uppercase;
   color: #9f9f9f;
 
   font-weight: 400;
 }
 .detail-left-inner > div {
   font-weight: 400;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 24px;
   color: #112a3f;
 }
@@ -1531,7 +1530,7 @@ footer {
 }
 
 .accordion::after {
-  content: url("/uploads/chevron-left.svg");
+  content: url("../images/chevron-left.svg");
   position: absolute;
   right: 0;
   top: 10px;
@@ -1554,6 +1553,7 @@ div.jump-link-sublist {
   padding-left: 5px;
   padding-top: 10px;
 }
+
 div.jump-link-sublist:empty {
   display: none !important;
 }
@@ -1633,6 +1633,10 @@ div.jump-link-sublist > a:nth-child(1) {
 .detail-mid > img {
   width: 75%;
   min-width: 270px;
+}
+
+.detail-mid > img {
+  height: auto;
 }
 .detail-right-inner {
   gap: 20px;
