@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  fetch("https://s3-eu-west-1.amazonaws.com/dev.appdrag.com/html-migration-1d8225/data/blogs.json")
+  fetch("/data/blogs.json")
     .then((response) => {
       if (!response.ok) {
         throw new Error(`Failed to fetch blogs.json: ${response.status}`);
@@ -92,12 +92,11 @@ const closeBtn = document.querySelector(".close-menu");
 const nav = document.querySelector("nav");
 
 menuBtn.addEventListener("click", () => {
-    nav.style.height = `${nav.scrollHeight}px`;
+  nav.style.height = `${nav.scrollHeight}px`;
 });
 closeBtn.addEventListener("click", () => {
-    nav.style.height = 0;
+  nav.style.height = 0;
 });
-
 
 // Function to Update Meta Tags
 function updateMetaTags(metadata) {
@@ -120,8 +119,6 @@ function updateMetaTags(metadata) {
   }
   metaKeywords.content = metadata.keywords || "";
 }
-
-
 
 // Function to Build Structure for Jump Links
 function buildStructure(content) {
