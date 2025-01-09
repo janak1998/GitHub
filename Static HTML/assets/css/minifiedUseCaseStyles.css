@@ -1890,7 +1890,7 @@ div.jump-link-sublist > a:first-child {
 
 @media only screen and (min-width: 1024px) {
   .detail-left-inner {
-    min-width: 400px;
+    min-width: 258px;
   }
 }
 
@@ -2276,11 +2276,6 @@ li:has(strong)::marker {
   list-style-type: decimal;
 }
 
-.detail-mid ol li,
-.detail-mid ul li {
-  padding: 10px 0;
-}
-
 .detail-mid h2,
 .detail-mid h3,
 .detail-mid h4,
@@ -2432,6 +2427,12 @@ table::-webkit-scrollbar-thumb:hover {
   color: #fff;
   width: fit-content;
   height: 48px;
+}
+
+.heroSection button:hover {
+  background-color: #1d3054;
+  color: #2aac08;
+  cursor: pointer;
 }
 
 .heroSection {
