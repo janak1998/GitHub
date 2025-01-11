@@ -99,11 +99,11 @@ h3 {
   font-size: 24px;
   font-weight: 600;
 }
-
+/* 
 h3:not(:first-of-type) {
   border-top: 1px solid rgba(0, 0, 0, 0.2);
   padding-top: 30px !important;
-}
+} */
 
 h1,
 h2,
@@ -1787,9 +1787,7 @@ div.jump-link-sublist:empty {
   gap: 15px;
   position: sticky;
   top: 110px;
-  background-color: #f9f5f1;
   padding-left: 20px;
-  padding-top: 30px;
   padding-bottom: 30px;
   font-weight: 400;
 }
@@ -2312,6 +2310,19 @@ li:has(strong)::marker {
 .detail-mid a:hover {
   background-color: #1d3054;
   color: #fff;
+}
+
+.detail-mid a.hyperlink {
+  color: #2aac08;
+  font-size: inherit;
+  border: none;
+  display: inline;
+  padding: 0;
+}
+
+.detail-mid a.hyperlink:hover {
+  background-color: transparent;
+  text-decoration: underline;
 }
 
 .detail-mid > ol,

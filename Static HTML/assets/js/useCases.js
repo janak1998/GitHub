@@ -246,3 +246,25 @@ function addIDsToHeadings(content, container) {
     }
   });
 }
+
+//add hyperlink class to only links
+document.addEventListener("DOMContentLoaded", () => {
+  // Find all anchors on the page
+  const anchors = document.querySelectorAll("a");
+
+  anchors.forEach((anchor) => {
+    const prevSibling = anchor.previousElementSibling;
+    const nextSibling = anchor.nextElementSibling;
+
+    // Check if the previous sibling is a <span>
+    const hasPrevSpan = prevSibling?.tagName?.toLowerCase() === "span";
+
+    // Check if the next sibling is a <span>
+    const hasNextSpan = nextSibling?.tagName?.toLowerCase() === "span";
+
+    // Add the 'hyperlink' class if at least one <span> is found
+    if (hasPrevSpan || hasNextSpan) {
+      anchor.classList.add("hyperlink");
+    }
+  });
+});
